@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.1",
+    "redoc-cli": "^0.13.14"
+  }
+}

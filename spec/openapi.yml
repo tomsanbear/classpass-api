@@ -1,0 +1,452 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Sample API
+  description: A sample API to illustrate OpenAPI concepts
+paths:
+  /_api/v2/auth/login:
+    post:
+      summary: Retrieve an authentication token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /_api/v3/search/schedules:
+    post:
+      summary: Search for classes within the filters provided
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchRequest"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - client_id
+        - password
+        - username
+      properties:
+        client_id:
+          type: string
+        password:
+          type: string
+        username:
+          type: string
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    SearchRequest:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        report_ineligible_classes:
+          type: boolean
+        exclude_past_booking:
+          type: boolean
+        venue:
+          type: array
+          items:
+            type: integer
+            format: int32
+    Schedule:
+      type: object
+      properties:
+        availability:
+          type: object
+          properties:
+            credits_type:
+              type: string
+            label:
+              type: string
+            preferred_booking_method:
+              type: string
+            pricing_algo_details:
+              type: string
+            reason:
+              type: string
+            status:
+              type: string
+        cancellation_policy:
+          type: string
+        class:
+          type: object
+          properties:
+            activities:
+              type: string
+            alias:
+              type: string
+            description:
+              type: string
+            entity_type:
+              type: string
+            how_to_get_there:
+              type: string
+            id:
+              type: integer
+              format: int32
+            level:
+              type: string
+            name:
+              type: string
+            ratings:
+              type: object
+              properties:
+                count:
+                  type: object
+                  properties:
+                    2_star:
+                      type: integer
+                      format: int32
+                    3_star:
+                      type: integer
+                      format: int32
+                    4_star:
+                      type: integer
+                      format: int32
+                    5_star:
+                      type: integer
+                      format: int32
+                    total:
+                      type: integer
+                      format: int32
+                    1_star:
+                      type: integer
+                      format: int32
+                display_total:
+                  type: string
+                mean:
+                  type: number
+            source:
+              type: string
+            vaccine_only:
+              type: boolean
+            what_to_bring:
+              type: string
+        duration_minutes:
+          type: integer
+          format: int32
+        endtime:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        is_livestream:
+          type: boolean
+        late_cancellation:
+          type: string
+        location_override:
+          type: boolean
+        org_visits_including_plus:
+          type: integer
+          format: int32
+        retail_price_in_credits:
+          type: integer
+          format: int32
+        source:
+          type: string
+        starttime:
+          type: integer
+          format: int32
+        tag_ids:
+          type: array
+          items:
+            type: string
+        teacher:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            name:
+              type: string
+        teacher_name:
+          type: string
+        venue:
+          type: object
+          properties:
+            activities:
+              type: string
+            activity_id_set:
+              type: string
+              format: nullable
+            activity_ids:
+              type: string
+              format: nullable
+            address:
+              type: object
+              properties:
+                address_line0:
+                  type: string
+                address_line1:
+                  type: string
+                address_line2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                zip_code:
+                  type: string
+            alias:
+              type: string
+            amenities:
+              type: object
+              properties:
+                showers:
+                  type: boolean
+                lockers:
+                  type: boolean
+                mats:
+                  type: boolean
+                towels:
+                  type: boolean
+                parking:
+                  type: boolean
+            attended:
+              type: boolean
+            attributes:
+              type: object
+              properties:
+                safety_and_cleanliness:
+                  type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attribute_name:
+                            type: string
+                          description:
+                            type: string
+                    last_updated:
+                      type: string
+                      format: date-time
+            average_discount:
+              type: number
+            booking_window:
+              type: string
+            bookmark_id:
+              type: string
+              format: nullable
+            cancellation_policy:
+              type: string
+            description:
+              type: string
+            distance:
+              type: string
+              format: nullable
+            distance_unit:
+              type: string
+              format: nullable
+            facebook_page_url:
+              type: string
+            goodness_score:
+              type: object
+              properties:
+                venue_search:
+                  type: number
+            hide_in_search:
+              type: boolean
+            how_to_get_there:
+              type: string
+            id:
+              type: integer
+              format: int32
+            images:
+              type: object
+              properties:
+                default:
+                  type: string
+                mobile:
+                  type: object
+                  properties:
+                    1x:
+                      type: string
+                    2x:
+                      type: string
+                    3x:
+                      type: string
+                    v1x:
+                      type: string
+                    v2x:
+                      type: string
+                    v3x:
+                      type: string
+            instagram_handle:
+              type: string
+            is_new:
+              type: boolean
+            late_cancellation:
+              type: string
+            location:
+              type: object
+              properties:
+                lat:
+                  type: number
+                location_id:
+                  type: integer
+                  format: int32
+                lon:
+                  type: number
+                msa_id:
+                  type: integer
+                  format: int32
+                name:
+                  type: string
+                neighborhood:
+                  type: string
+                  format: nullable
+                parent_id:
+                  type: string
+                  format: nullable
+                parent_name:
+                  type: string
+            lockers:
+              type: boolean
+            name:
+              type: string
+            organization_id:
+              type: integer
+              format: int32
+            out_of_network:
+              type: boolean
+            phone_number:
+              type: string
+            pre_built:
+              type: boolean
+            pre_built_page_live:
+              type: boolean
+            pro_tip:
+              type: string
+            ratings:
+              type: object
+              properties:
+                count:
+                  type: object
+                  properties:
+                    2_star:
+                      type: integer
+                      format: int32
+                    3_star:
+                      type: integer
+                      format: int32
+                    4_star:
+                      type: integer
+                      format: int32
+                    5_star:
+                      type: integer
+                      format: int32
+                    total:
+                      type: integer
+                      format: int32
+                    1_star:
+                      type: integer
+                      format: int32
+                display_total:
+                  type: string
+                mean:
+                  type: number
+            requirements:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    address:
+                      type: boolean
+                    date_of_birth:
+                      type: boolean
+                    emergency_contact:
+                      type: boolean
+                    phone:
+                      type: boolean
+            return_in_results:
+              type: string
+              format: nullable
+            showers:
+              type: boolean
+            source:
+              type: string
+            spotify_url:
+              type: string
+              format: nullable
+            studio_direct_enabled:
+              type: string
+              format: nullable
+            subtitle:
+              type: string
+            transportation:
+              type: string
+            twitter:
+              type: string
+            tz:
+              type: string
+            updated_on:
+              type: string
+              format: nullable
+            venue_store_ad_unit:
+              type: string
+              format: nullable
+            website:
+              type: string
+            what_to_bring:
+              type: string
+            when_to_arrive:
+              type: string
+        verticals:
+          type: array
+          items:
+            type: string
+    SearchResponse:
+      type: object
+      properties:
+        filter_options:
+          type: object
+          properties:
+            credit_values:
+              type: object
+              properties:
+                max:
+                  type: integer
+                  format: int32
+                min:
+                  type: integer
+                  format: int32
+        schedule_context:
+          type: object
+          properties:
+            is_using_api:
+              type: boolean
+            is_viewing_next_cycle:
+              type: boolean
+        schedules:
+          type: array
+          items:
+            $ref: "#/components/schemas/Schedule"
+        search_id:
+          type: string
